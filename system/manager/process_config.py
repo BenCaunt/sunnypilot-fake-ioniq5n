@@ -95,6 +95,10 @@ def is_stock_model(started, params, CP: car.CarParams) -> bool:
 def mapd_ready(started: bool, params: Params, CP: car.CarParams) -> bool:
   return bool(os.path.exists(Paths.mapd_root()))
 
+def engine_sound_enabled(started: bool, params: Params, CP: car.CarParams) -> bool:
+  """Enable engine sound simulator when driving and param is enabled."""
+  return started and params.get_bool("EngineSoundEnabled")
+
 def uploader_ready(started: bool, params: Params, CP: car.CarParams) -> bool:
   if not params.get_bool("OnroadUploads"):
     return only_offroad(started, params, CP)
@@ -183,6 +187,9 @@ procs += [
 
   # locationd
   NativeProcess("locationd_llk", "sunnypilot/selfdrive/locationd", ["./locationd"], only_onroad),
+
+  # Engine sound simulator (non-critical, read-only process)
+  PythonProcess("enginesoundd", "sunnypilot.enginesoundd.enginesoundd", engine_sound_enabled),
 ]
 
 if os.path.exists("./github_runner.sh"):

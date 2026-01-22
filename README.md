@@ -52,6 +52,45 @@ Please refer to [Recommended Branches](#recommended-branches) to find your prefe
 > [!NOTE]
 > Do you require further assistance with software installation? Join the [sunnypilot community forum](https://community.sunnypilot.ai/new-topic?category=general/qa) and create a topic in the General/Q&A Category channel.
 
+---
+
+## Installing This Fork (fake-ioniq-5n)
+
+This fork includes custom features for the Hyundai Ioniq 5 SE, including an engine sound simulator.
+
+### Fresh Installation
+
+1. [Factory reset/uninstall](https://github.com/commaai/openpilot/wiki/FAQ#how-can-i-reset-the-device) any existing software
+2. On reboot, select **"Custom Software"** when prompted
+3. Enter one of these installation URLs:
+
+| Method | Installation URL |
+|:------:|:-----------------|
+| smiskol installer | `https://smiskol.com/fork/BenCaunt/sunnypilot-fake-ioniq5n/fake-ioniq-5n` |
+| Short format | `BenCaunt/sunnypilot-fake-ioniq5n/fake-ioniq-5n` |
+
+4. Complete the onscreen setup
+
+### Switching from Existing sunnypilot
+
+If you already have sunnypilot installed, you'll need to do a fresh install since this is a separate repository.
+
+### Engine Sound Simulator
+
+The engine sound simulator is **enabled by default**. It plays speed-based engine sounds and shift sounds when paddle shifters are used.
+
+To disable it via SSH or the on-device terminal:
+```bash
+cd /data/openpilot
+python -c "from openpilot.common.params import Params; Params().put_bool('EngineSoundEnabled', False)"
+```
+
+To re-enable:
+```bash
+python -c "from openpilot.common.params import Params; Params().put_bool('EngineSoundEnabled', True)"
+```
+
+---
 
 <details>
 
